@@ -1,4 +1,6 @@
-package org.hrorm.gravity;@lombok.Builder
+package org.hrorm.gravity;
+
+@lombok.Builder
 @lombok.Data
 public class Body {
     private final String name;

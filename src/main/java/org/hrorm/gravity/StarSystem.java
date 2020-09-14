@@ -1,4 +1,6 @@
-package org.hrorm.gravity;import java.util.ArrayList;
+package org.hrorm.gravity;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

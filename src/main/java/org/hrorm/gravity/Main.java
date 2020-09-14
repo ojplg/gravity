@@ -1,4 +1,6 @@
-package org.hrorm.gravity;import java.awt.*;
+package org.hrorm.gravity;
+
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
