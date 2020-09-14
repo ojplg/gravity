@@ -24,7 +24,7 @@ package org.hrorm.gravity;public class Vector {
         return new Vector(a.x+b.x, a.y+b.y, a.z+b.z);
     }
 
-    public Vector invert(){
+    public Vector negate(){
         return new Vector(-x,-y,-z);
     }
 

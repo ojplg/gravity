@@ -16,7 +16,7 @@ public class StarSystem {
 
     private final Vector sunPosition = new Vector(0,0,0);
     private final Vector earthPosition = new Vector(1.521e11,0, 0);
-    private final Vector moonPosition = new Vector( 1.522e11,0,0);
+    private final Vector moonPosition = new Vector( 1.521001e11,0,0);
 
     private final Vector sunVelocity = new Vector(0,0,0);
     // 460 m/s
@@ -28,7 +28,7 @@ public class StarSystem {
 
     public StarSystem(){
         bodies.put(sun.getName(), new LocatedBody(sun, sunPosition));
-        bodies.put(earth.getName(), new LocatedBody(earth, earthPosition));
+        //bodies.put(earth.getName(), new LocatedBody(earth, earthPosition));
         bodies.put(moon.getName(), new LocatedBody(moon, moonPosition));
 
         velocities.put(sun.getName(), sunVelocity);
@@ -37,11 +37,26 @@ public class StarSystem {
     }
 
     public String positionOutputs() {
-        return "Positions: Earth: " + earthPosition + ", Sun: " + sunPosition;
+        StringBuffer buf = new StringBuffer();
+        buf.append("Positions: ");
+        for(Map.Entry<String, LocatedBody> entry : bodies.entrySet()){
+            buf.append(entry.getKey());
+            buf.append(" ");
+            buf.append(entry.getValue().getLocation());
+        }
+
+        return buf.toString();
     }
 
     public String velocityOutputs() {
-        return "Velocities:  Earth " + earthVelocity + ", Sun " + sunVelocity;
+        StringBuffer buf = new StringBuffer();
+        buf.append("Velocities: ");
+        for(Map.Entry<String, Vector> entry : velocities.entrySet()) {
+            buf.append(entry.getKey());
+            buf.append(" ");
+            buf.append(entry.getValue());
+        }
+        return buf.toString();
     }
 
 
@@ -95,11 +110,11 @@ public class StarSystem {
         earthPosition.update(earthDeltaX, earthDeltaY, earthDeltaZ);
     }
 
-    public Vector forceCalculation(LocatedBody a, LocatedBody b){
+    public static Vector forceCalculation(LocatedBody a, LocatedBody b){
         double distance = a.getLocation().distanceFrom(b.getLocation());
-        double xDistance = a.getLocation().xDifference(b.getLocation());
-        double yDistance = a.getLocation().yDifference(b.getLocation());
-        double zDistance = a.getLocation().zDifference(b.getLocation());
+        double xDistance = b.getLocation().xDifference(a.getLocation());
+        double yDistance = b.getLocation().yDifference(a.getLocation());
+        double zDistance = b.getLocation().zDifference(a.getLocation());
 
         double forceMagnitude = Force.strength(a.getBody(), b.getBody(), distance);
         double xForce = forceMagnitude * xDistance / distance;
@@ -153,8 +168,8 @@ public class StarSystem {
 
                 Vector pairwiseForce = forceCalculation(a, b);
 
-                forces.compute (aName, (name, force) -> Vector.sum(force, pairwiseForce.invert()));
-                forces.compute (bName, (name, force) -> Vector.sum(force, pairwiseForce));
+                forces.compute (aName, (name, force) -> Vector.sum(force, pairwiseForce));
+                forces.compute (bName, (name, force) -> Vector.sum(force, pairwiseForce.negate()));
             }
         }
         return forces;
