@@ -4,9 +4,12 @@ package org.hrorm.gravity;public class LocatedBody {
 
     private final Vector location;
 
-    public LocatedBody(Body body, Vector location) {
+    private final Vector velocity;
+
+    public LocatedBody(Body body, Vector location, Vector velocity) {
         this.body = body;
         this.location = location;
+        this.velocity = velocity;
     }
 
     public Body getBody() {
@@ -17,5 +20,7 @@ package org.hrorm.gravity;public class LocatedBody {
         return location;
     }
 
-
+    public Vector getVelocity() {
+        return velocity;
+    }
 }

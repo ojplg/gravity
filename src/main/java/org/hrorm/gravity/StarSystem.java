@@ -1,9 +1,6 @@
 package org.hrorm.gravity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StarSystem {
 
@@ -24,16 +21,17 @@ public class StarSystem {
     private final Vector moonVelocity = new Vector(0, 32000, 0);
 
     private final Map<String,LocatedBody> bodies = new HashMap<>();
-    private final Map<String, Vector> velocities = new HashMap<>();
 
     public StarSystem(){
-        bodies.put(sun.getName(), new LocatedBody(sun, sunPosition));
-        //bodies.put(earth.getName(), new LocatedBody(earth, earthPosition));
-        bodies.put(moon.getName(), new LocatedBody(moon, moonPosition));
+        bodies.put(sun.getName(), new LocatedBody(sun, sunPosition, sunVelocity));
+        //bodies.put(earth.getName(), new LocatedBody(earth, earthPosition, earthVelocity));
+        bodies.put(moon.getName(), new LocatedBody(moon, moonPosition, moonVelocity));
+    }
 
-        velocities.put(sun.getName(), sunVelocity);
-        velocities.put(earth.getName(), earthVelocity);
-        velocities.put(moon.getName(), moonVelocity);
+    public StarSystem(LocatedBody ... bods){
+        for(LocatedBody body : bods){
+            bodies.put(body.getBody().getName(), body);
+        }
     }
 
     public String positionOutputs() {
@@ -51,10 +49,10 @@ public class StarSystem {
     public String velocityOutputs() {
         StringBuffer buf = new StringBuffer();
         buf.append("Velocities: ");
-        for(Map.Entry<String, Vector> entry : velocities.entrySet()) {
+        for(Map.Entry<String, LocatedBody> entry : bodies.entrySet()) {
             buf.append(entry.getKey());
             buf.append(" ");
-            buf.append(entry.getValue());
+            buf.append(entry.getValue().getVelocity());
         }
         return buf.toString();
     }
@@ -68,46 +66,6 @@ public class StarSystem {
         List<LocatedBody> list = new ArrayList<>();
         list.addAll(bodies.values());
         return list;
-    }
-
-    public void next(){
-        /*
-        calculate distance
-        calculate force
-        calculate change in velocity
-        calculate new position
-         */
-        double distance = sunPosition.distanceFrom(earthPosition);
-        double xDistance = sunPosition.xDifference(earthPosition);
-        double yDistance = sunPosition.yDifference(earthPosition);
-        double zDistance = sunPosition.zDifference(earthPosition);
-
-        double forceMagnitude = Force.strength(sun, earth, distance);
-        double xForce = forceMagnitude * xDistance / distance;
-        double yForce = forceMagnitude * yDistance / distance;
-        double zForce = forceMagnitude * zDistance / distance;
-
-        double earthXVelocityDelta = velocityDelta(xForce, tickSize, earth.getMass());
-        double earthYVelocityDelta = velocityDelta(yForce, tickSize, earth.getMass());
-        double earthZVelocityDelta = velocityDelta(zForce, tickSize, earth.getMass());
-
-        double sunXVelocityDelta = velocityDelta(xForce, tickSize, sun.getMass());
-        double sunYVelocityDelta = velocityDelta(yForce, tickSize, sun.getMass());
-        double sunZVelocityDelta = velocityDelta(zForce, tickSize, sun.getMass());
-
-        sunVelocity.update(sunXVelocityDelta, sunYVelocityDelta, sunZVelocityDelta);
-        earthVelocity.update(earthXVelocityDelta, earthYVelocityDelta, earthZVelocityDelta);
-
-        double earthDeltaX = tickSize * earthVelocity.xComponent();
-        double earthDeltaY = tickSize * earthVelocity.yComponent();
-        double earthDeltaZ = tickSize * earthVelocity.zComponent();
-
-        double sunDeltaX = tickSize * sunVelocity.xComponent();
-        double sunDeltaY = tickSize * sunVelocity.yComponent();
-        double sunDeltaZ = tickSize * sunVelocity.zComponent();
-
-        sunPosition.update(sunDeltaX, sunDeltaY, sunDeltaZ);
-        earthPosition.update(earthDeltaX, earthDeltaY, earthDeltaZ);
     }
 
     public static Vector forceCalculation(LocatedBody a, LocatedBody b){
@@ -125,13 +83,10 @@ public class StarSystem {
     }
 
     public void nextAll(){
-        List<String> names = new ArrayList();
-        names.addAll(bodies.keySet());
+        Map<String, Vector> forces = computeForces();
 
-        Map<String, Vector> forces = computeForces(names);
-
-        for(String name : names){
-            Vector velocity = velocities.get(name);
+        for(String name : bodies.keySet()){
+            Vector velocity = bodies.get(name).getVelocity();
             Body body = bodies.get(name).getBody();
             Vector location = bodies.get(name).getLocation();
             Vector force = forces.get(name);
@@ -149,7 +104,10 @@ public class StarSystem {
         }
     }
 
-    private Map<String, Vector> computeForces(List<String> names){
+    public Map<String, Vector> computeForces(){
+
+        List<String> names = new ArrayList<>(bodies.keySet());
+
         Map<String, Vector> forces = new HashMap();
         for(String name : names){
             forces.put(name, new Vector());
@@ -178,7 +136,5 @@ public class StarSystem {
     private double velocityDelta(double force, double time, double mass){
         return force * time / mass;
     }
-
-
 
 }

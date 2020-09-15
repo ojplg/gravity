@@ -1,4 +1,6 @@
-package org.hrorm.gravity;public class Vector {
+package org.hrorm.gravity;
+
+public class Vector {
 
     private double x;
     private double y;
@@ -57,6 +59,12 @@ package org.hrorm.gravity;public class Vector {
                 xDifference(other) * xDifference(other)
                 + yDifference(other) * yDifference(other)
                 + zDifference(other) * zDifference(other)
+        );
+    }
+
+    public double absoluteValue(){
+        return Math.sqrt(
+                x * x + y * y + z * z
         );
     }
 
