@@ -85,10 +85,11 @@ public class StarSystem {
     public void nextAll(){
         Map<String, Vector> forces = computeForces();
 
-        for(String name : bodies.keySet()){
-            Vector velocity = bodies.get(name).getVelocity();
-            Body body = bodies.get(name).getBody();
-            Vector location = bodies.get(name).getLocation();
+        for(LocatedBody locatedBody : bodies.values()){
+            Vector velocity = locatedBody.getVelocity();
+            Body body = locatedBody.getBody();
+            Vector location = locatedBody.getLocation();
+            String name = body.getName();
             Vector force = forces.get(name);
 
             double xVelocityDelta = velocityDelta(force.xComponent(), tickSize, body.getMass());
