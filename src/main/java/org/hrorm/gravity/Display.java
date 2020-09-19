@@ -17,7 +17,7 @@ public class Display extends Panel {
 
     public Display(double pixelDimension, double distanceBoundary){
         this.pixelDimension = pixelDimension;
-        this.distanceBoundary = distanceBoundary * 2;
+        this.distanceBoundary = distanceBoundary * 1.2;
     }
 
     @Override

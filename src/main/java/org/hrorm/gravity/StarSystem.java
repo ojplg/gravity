@@ -76,7 +76,7 @@ public class StarSystem {
                 size = distance;
             }
         }
-        return size * 1.2;
+        return size * 1.1;
     }
 
     public List<LocatedBody> getLocatedBodies(){
