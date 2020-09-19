@@ -4,28 +4,38 @@ import java.util.*;
 
 public class StarSystem {
 
+    // masses in kilograms
+    // radius in meters
+    private static final Body sun = Body.builder().name("sun").mass(1.9891e30).radius(6.957e8).build();
+    private static final Body earth = Body.builder().name("earth").mass(5.972e24).radius(6.371e6).build();
+    private static final Body moon = Body.builder().name("moon").mass(7.3476e22).radius(1.736e6).build();
+
+    // distance in meters: earth 150 million kilometers = 1.5e11 meters
+    // earth speed is 30 kilometers/second = 30,000 m/s
+    private static final LocatedBody[] SUN_AND_EARTH =
+            {   new LocatedBody(sun, new Vector(0,0,0), new Vector(0,0,0))
+                    , new LocatedBody(earth, new Vector(1.51e11,0,0), new Vector(0,30000,0))
+            };
+
+    // moon is 385,000 kilometers from earth = 3.85e8 meters
+    // moon travels about 1.022 kilometers/second = 1,022 m/s
+    private static final LocatedBody[] EARTH_AND_MOON =
+            {new LocatedBody(earth, new Vector(0, 0, 0), new Vector(0, 0, 0)),
+                    new LocatedBody(moon, new Vector(3.85e8, 0, 0 ), new Vector(0, 1022,0))
+            };
+
+    private static final LocatedBody[] SUN_EARTH_AND_MOON =
+            {new LocatedBody(sun, new Vector(0, 0, 0), new Vector(0, 0, 0))
+                    , new LocatedBody(earth, new Vector(1.51e11, 0, 0), new Vector(0, 30000, 0))
+                    , new LocatedBody(moon, new Vector(1.51e11 + 3.85e8, 0, 0), new Vector(0, 31022, 0))
+            };
+
     // in seconds
-    private final double     tickSize = 1;
-
-    private final Body sun = Body.builder().name("sun").mass(1.9891e30).radius(6.957e8).build();
-    private final Body earth = Body.builder().name("earth").mass(5.972e24).radius(6.371e6).build();
-    private final Body moon = Body.builder().name("moon").mass(7.3476e22).radius(1.736e6).build();
-
-    private final Vector sunPosition = new Vector(0,0,0);
-    private final Vector earthPosition = new Vector(1.521e11,0, 0);
-    private final Vector moonPosition = new Vector( 1.521001e11,0,0);
-
-    private final Vector sunVelocity = new Vector(0,0,0);
-    // 460 m/s
-    private final Vector earthVelocity = new Vector(0, 31000, 0);
-    private final Vector moonVelocity = new Vector(0, 32000, 0);
-
+    private final double tickSize = 1;
     private final Map<String,LocatedBody> bodies = new HashMap<>();
 
     public StarSystem(){
-        bodies.put(sun.getName(), new LocatedBody(sun, sunPosition, sunVelocity));
-        //bodies.put(earth.getName(), new LocatedBody(earth, earthPosition, earthVelocity));
-        bodies.put(moon.getName(), new LocatedBody(moon, moonPosition, moonVelocity));
+        this(SUN_EARTH_AND_MOON);
     }
 
     public StarSystem(LocatedBody ... bods){
@@ -59,7 +69,14 @@ public class StarSystem {
 
 
     public double getSize(){
-        return 3e11;
+        double size = 1;
+        for(LocatedBody lb : bodies.values()){
+            double distance = lb.getLocation().absoluteValue();
+            if (distance > size){
+                size = distance;
+            }
+        }
+        return size * 1.2;
     }
 
     public List<LocatedBody> getLocatedBodies(){

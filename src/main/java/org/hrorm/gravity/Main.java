@@ -32,7 +32,7 @@ public class Main {
 
         frame.add(display);
 
-        for(int idx = 0 ; idx<100*DAY; idx ++){
+        for(int idx = 0 ; idx<365*DAY; idx ++){
             if( idx % DAY == 0 ) {
                 String time  = timeOutput(idx);
                 System.out.println(time+ " " + system.positionOutputs());
