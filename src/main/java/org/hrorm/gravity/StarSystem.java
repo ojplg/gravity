@@ -10,6 +10,9 @@ public class StarSystem {
     private static final Body earth = Body.builder().name("earth").mass(5.972e24).radius(6.371e6).build();
     private static final Body moon = Body.builder().name("moon").mass(7.3476e22).radius(1.736e6).build();
     private static final Body venus = Body.builder().name("venus").mass(4.8675e24).radius(6.0518e6).build();
+    private static final Body mercury = Body.builder().name("mercury").mass(3.3011e23).radius(4.88e3).build();
+    private static final Body mars = Body.builder().name("mars").mass(6.4171e23).radius(3.389e3).build();
+
 
     // distance in meters: earth 150 million kilometers = 1.5e11 meters
     // earth speed is 30 kilometers/second = 30,000 m/s
@@ -31,11 +34,13 @@ public class StarSystem {
                     , new LocatedBody(moon, new Vector(1.51e11 + 3.85e8, 0, 0), new Vector(0, 31022, 0))
             };
 
-    private static final LocatedBody[] SUN_EARTH_MOON_VENUS =
+    private static final LocatedBody[] INNER_PLANETS =
             {new LocatedBody(sun, new Vector(0, 0, 0), new Vector(0, 0, 0))
                     , new LocatedBody(earth, new Vector(1.51e11, 0, 0), new Vector(0, 30000, 0))
                     , new LocatedBody(moon, new Vector(1.51e11 + 3.85e8, 0, 0), new Vector(0, 31022, 0))
                     , new LocatedBody(venus, new Vector(1.08939e11, 0, 0), new Vector(0,35020, 0))
+                    , new LocatedBody(mercury, new Vector(6.9816e10, 0, 0), new Vector(0,47362, 0))
+                    , new LocatedBody(mars, new Vector(2.25e11, 0, 0), new Vector(0,24000, 0))
             };
 
 
@@ -44,7 +49,7 @@ public class StarSystem {
     private final Map<String,LocatedBody> bodies = new HashMap<>();
 
     public StarSystem(){
-        this(SUN_EARTH_MOON_VENUS);
+        this(INNER_PLANETS);
     }
 
     public StarSystem(LocatedBody ... bods){
