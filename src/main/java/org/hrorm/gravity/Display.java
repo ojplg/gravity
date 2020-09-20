@@ -42,8 +42,6 @@ public class Display extends Panel {
 
         pointsToDraw.add(new Point2D.Double(x,y));
 
-        System.out.println("Drawing at "  + x +"," + y);
-
         Ellipse2D.Double ellipse = new Ellipse2D.Double(x, y, 5.0, 5.0);
 
         return ellipse;

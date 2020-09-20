@@ -13,34 +13,22 @@ public class StarSystem {
     private static final Body mercury = Body.builder().name("mercury").mass(3.3011e23).radius(4.88e3).build();
     private static final Body mars = Body.builder().name("mars").mass(6.4171e23).radius(3.389e3).build();
 
-
     // distance in meters: earth 150 million kilometers = 1.5e11 meters
     // earth speed is 30 kilometers/second = 30,000 m/s
-    private static final LocatedBody[] SUN_AND_EARTH =
-            {   new LocatedBody(sun, new Vector(0,0,0), new Vector(0,0,0))
-                    , new LocatedBody(earth, new Vector(1.51e11,0,0), new Vector(0,30000,0))
-            };
-
     // moon is 385,000 kilometers from earth = 3.85e8 meters
     // moon travels about 1.022 kilometers/second = 1,022 m/s
-    private static final LocatedBody[] EARTH_AND_MOON =
-            {new LocatedBody(earth, new Vector(0, 0, 0), new Vector(0, 0, 0)),
-                    new LocatedBody(moon, new Vector(3.85e8, 0, 0 ), new Vector(0, 1022,0))
-            };
 
-    private static final LocatedBody[] SUN_EARTH_AND_MOON =
-            {new LocatedBody(sun, new Vector(0, 0, 0), new Vector(0, 0, 0))
-                    , new LocatedBody(earth, new Vector(1.51e11, 0, 0), new Vector(0, 30000, 0))
-                    , new LocatedBody(moon, new Vector(1.51e11 + 3.85e8, 0, 0), new Vector(0, 31022, 0))
-            };
+    // venus orbit about 225 days
+    // mars orbit about 687
+    // mercury orbit 89 days
 
     private static final LocatedBody[] INNER_PLANETS =
             {new LocatedBody(sun, new Vector(0, 0, 0), new Vector(0, 0, 0))
-                    , new LocatedBody(earth, new Vector(1.51e11, 0, 0), new Vector(0, 30000, 0))
-                    , new LocatedBody(moon, new Vector(1.51e11 + 3.85e8, 0, 0), new Vector(0, 31022, 0))
-                    , new LocatedBody(venus, new Vector(1.08939e11, 0, 0), new Vector(0,35020, 0))
-                    , new LocatedBody(mercury, new Vector(6.9816e10, 0, 0), new Vector(0,47362, 0))
-                    , new LocatedBody(mars, new Vector(2.25e11, 0, 0), new Vector(0,24000, 0))
+                    , new LocatedBody(earth, new Vector(1.512e11, 0, 0), new Vector(0, 29290, 0))
+                    , new LocatedBody(moon, new Vector(1.512e11 + 3.85e8, 0, 0), new Vector(0, 29290 + 1022, 0))
+                    , new LocatedBody(venus, new Vector(1.0894e11, 0, 0), new Vector(0,34780, 0))
+                    , new LocatedBody(mercury, new Vector(6.9816e10, 0, 0), new Vector(0,38860, 0))
+                    , new LocatedBody(mars, new Vector(2.492e11, 0, 0), new Vector(0,22000, 0))
             };
 
 
