@@ -12,6 +12,8 @@ public class StarSystem {
     private static final Body venus = Body.builder().name("venus").mass(4.8675e24).radius(6.0518e6).build();
     private static final Body mercury = Body.builder().name("mercury").mass(3.3011e23).radius(4.88e3).build();
     private static final Body mars = Body.builder().name("mars").mass(6.4171e23).radius(3.389e3).build();
+    private static final Body phobos = Body.builder().name("phobos").mass(1.0659e16).radius(1.12667e6).build();
+    private static final Body deimos = Body.builder().name("deimos").mass(1.4762e15).radius(6.2e5).build();
 
     // distance in meters: earth 150 million kilometers = 1.5e11 meters
     // earth speed is 30 kilometers/second = 30,000 m/s
@@ -29,6 +31,8 @@ public class StarSystem {
                     , new LocatedBody(venus, new Vector(1.0894e11, 0, 0), new Vector(0,34780, 0))
                     , new LocatedBody(mercury, new Vector(6.9816e10, 0, 0), new Vector(0,38860, 0))
                     , new LocatedBody(mars, new Vector(2.492e11, 0, 0), new Vector(0,22000, 0))
+                    , new LocatedBody(phobos, new Vector(2.492e11 + 9.51758e6, 0, 0), new Vector(0,22000 + 2138, 0))
+                    , new LocatedBody(deimos, new Vector(2.492e11 + 2.3455e7, 0, 0), new Vector(0,22000 + 1351, 0))
             };
 
 
