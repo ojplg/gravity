@@ -57,6 +57,8 @@ public class Main {
                 System.out.println(time+ " " + system.positionOutputs());
                 System.out.println(system.velocityOutputs());
                 display.setBodiesToDraw(system.getLocatedBodies());
+
+                display.setTimeOutput(time);
                 display.repaint();
 
 
@@ -85,6 +87,5 @@ public class Main {
         return "" + days + " " + hours + ":" + minutes + ":" + ss;
 
     }
-
 
 }

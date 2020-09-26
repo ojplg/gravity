@@ -16,7 +16,7 @@ public class Display extends JPanel {
 
     private List<Point2D.Double> pointsToDraw = new ArrayList<>();
 
-    private List<Shape> shapesToDraw = new ArrayList<>();
+    private String timeOutput;
 
     public Display(double pixelDimension, double distanceBoundary){
         this.pixelDimension = pixelDimension;
@@ -31,6 +31,9 @@ public class Display extends JPanel {
 
         this.setBackground(Color.DARK_GRAY);
         Graphics2D g2 = (Graphics2D) graphics;
+
+        g2.setColor(Color.WHITE);
+        g2.drawString(timeOutput, 25,25 );
 
         for( LocatedBody body : bodiesToDraw) {
             g2.setColor(body.getColor());
@@ -64,10 +67,10 @@ public class Display extends JPanel {
     }
 
     public void setBodiesToDraw(List<LocatedBody> bodiesToDraw) {
-        this.shapesToDraw.clear();
-
-
-
         this.bodiesToDraw = bodiesToDraw;
+    }
+
+    public void setTimeOutput(String timeOutput){
+        this.timeOutput = timeOutput;
     }
 }
