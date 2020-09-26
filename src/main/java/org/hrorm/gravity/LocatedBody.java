@@ -1,4 +1,8 @@
-package org.hrorm.gravity;public class LocatedBody {
+package org.hrorm.gravity;
+
+import java.awt.*;
+
+public class LocatedBody {
 
     private final Body body;
 
@@ -22,5 +26,17 @@ package org.hrorm.gravity;public class LocatedBody {
 
     public Vector getVelocity() {
         return velocity;
+    }
+
+    public double getRadius(){
+        return body.getRadius();
+    }
+
+    public String getName(){
+        return body.getName();
+    }
+
+    public Color getColor(){
+        return body.getColor();
     }
 }

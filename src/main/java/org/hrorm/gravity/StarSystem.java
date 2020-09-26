@@ -1,6 +1,8 @@
 package org.hrorm.gravity;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class StarSystem {
 
@@ -35,13 +37,24 @@ public class StarSystem {
                     , new LocatedBody(deimos, new Vector(2.492e11 + 2.3455e7, 0, 0), new Vector(0,22000 + 1351, 0))
             };
 
+    private static final Body alpha = Body.builder().name("alpha").mass(2.1e30).radius(7e8).color(Color.RED).build();
+    private static final Body beta = Body.builder().name("beta").mass(1.7e30).radius(6e8).color(Color.YELLOW).build();
+    private static final Body green = Body.builder().name("green").mass(5e24).radius(6e6).color(Color.GREEN).build();
+
+    private static final LocatedBody[] BINARY_SYSTEM =
+            {
+                    new LocatedBody( alpha, new Vector(2e9, 0, 0 ), new Vector(0,56000, 0))
+                  ,  new LocatedBody( beta, new Vector(-5e9, 0, 0 ), new Vector(0,-70000, 0))
+                  ,  new LocatedBody( green, new Vector(2e11, 0, 0 ), new Vector(0,38000, 0))
+            };
+
 
     // in seconds
     private final double tickSize = 1;
     private final Map<String,LocatedBody> bodies = new HashMap<>();
 
     public StarSystem(){
-        this(INNER_PLANETS);
+        this(BINARY_SYSTEM);
     }
 
     public StarSystem(LocatedBody ... bods){
@@ -93,6 +106,11 @@ public class StarSystem {
 
     public static Vector forceCalculation(LocatedBody a, LocatedBody b){
         double distance = a.getLocation().distanceFrom(b.getLocation());
+
+        if( distance <= a.getRadius()+ b.getRadius() ){
+            throw new RuntimeException("CRASHED.");
+        }
+
         double xDistance = b.getLocation().xDifference(a.getLocation());
         double yDistance = b.getLocation().yDifference(a.getLocation());
         double zDistance = b.getLocation().zDifference(a.getLocation());

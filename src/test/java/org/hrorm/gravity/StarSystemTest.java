@@ -3,6 +3,7 @@ package org.hrorm.gravity;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.Map;
 
 public class StarSystemTest {
@@ -10,8 +11,8 @@ public class StarSystemTest {
     @Test
     public void testForceCalculation_EqualMasses(){
 
-        Body a = new Body("a", 1e10, 1e6);
-        Body b = new Body("b", 1e10, 1e6);
+        Body a = new Body("a", 1e10, 1e6, Color.RED);
+        Body b = new Body("b", 1e10, 1e6, Color.RED);
 
         Vector aLocation = new Vector(0,0,0);
         Vector bLocation = new Vector(1e12, 0, 0);
@@ -31,8 +32,8 @@ public class StarSystemTest {
     @Test
     public void testForceCalculation_EqualMasses_ThreeDimensions(){
 
-        Body a = new Body("a", 1e10, 1e6);
-        Body b = new Body("b", 1e10, 1e6);
+        Body a = new Body("a", 1e10, 1e6, Color.WHITE);
+        Body b = new Body("b", 1e10, 1e6, Color.WHITE);
 
         Vector aLocation = new Vector(0,0,0);
         Vector bLocation = new Vector(1e10, 1e10, 1e10);
@@ -63,9 +64,9 @@ public class StarSystemTest {
         // three masses in an isoceles triangle
         // at the vertex is one with a larger mass
 
-        Body a = new Body("a", 8e10, 1e6);
-        Body b = new Body("b", 1e10, 1e6);
-        Body c = new Body("c", 1e10, 1e6);
+        Body a = new Body("a", 8e10, 1e6, Color.DARK_GRAY);
+        Body b = new Body("b", 1e10, 1e6, Color.DARK_GRAY);
+        Body c = new Body("c", 1e10, 1e6, Color.DARK_GRAY);
 
         Vector aLocation = new Vector(0,5e9,0);
         Vector bLocation = new Vector(1e10, 0, 0);
