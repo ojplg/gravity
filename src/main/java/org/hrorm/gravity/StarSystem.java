@@ -43,9 +43,9 @@ public class StarSystem {
 
     private static final LocatedBody[] BINARY_SYSTEM =
             {
-                    new LocatedBody( alpha, new Vector(2e9, 0, 0 ), new Vector(0,56700, 0))
-                  ,  new LocatedBody( beta, new Vector(-5e9, 0, 0 ), new Vector(0,-70000, 0))
-                  ,  new LocatedBody( green, new Vector(2e11, 0, 0 ), new Vector(0,35000, 0))
+                    new LocatedBody( alpha, new Vector(6e9, 0, 0 ), new Vector(0,56700, 0))
+                  ,  new LocatedBody( beta, new Vector(-15e9, 0, 0 ), new Vector(0,-70000, 0))
+                 ,  new LocatedBody( green, new Vector(2e11, 0, 0 ), new Vector(0,35000, 0))
             };
 
 

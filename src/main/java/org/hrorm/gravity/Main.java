@@ -42,8 +42,8 @@ public class Main {
 
         long lastDrawTime = System.currentTimeMillis();
 
-        for(int idx = 0 ; idx<1000*DAY; idx ++){
-            if( idx % HOUR == 0 ) {
+        for(int idx = 0 ; idx<=10000*DAY; idx ++){
+            if( idx % (30 * MINUTE) == 0 ) {
                 long now = System.currentTimeMillis();
 
                 if( lastDrawTime + CADENCE > now ){
